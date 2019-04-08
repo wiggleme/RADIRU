@@ -93,7 +93,7 @@ do
             echo "fail:${fileInput}"
         fi
     fi
-    sleep 4
+    sleep 2
     timeNow=`date "+%s"`
 done
 rm -f ${WORKFILE}
