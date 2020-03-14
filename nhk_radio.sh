@@ -181,7 +181,7 @@ echo "file     = ${OUTFILE}"
 if [ $PORR = "rec" ]; then
 	DURATION=`expr 10 + ${DURATION}`
 	"${DIRNAME%/}/dlradio.sh" -u "${URL}" -l "${PLAYLIST}" -d "${DURATION}" \
-		-w "${TMPFILE}" -r "${RECFILE} >${DLLOGFILE} 2>&1"
+		-w "${TMPFILE}" -r "${RECFILE}" >${DLLOGFILE} 2>&1
 else
 	"${DIRNAME%/}/dlradio.sh" -u "${URL}" -l "${PLAYLIST}" -d "${DURATION}" \
 		-w "${TMPFILE}" -r "${RECFILE}" -b "${PREBUF}" >${DLLOGFILE} 2>&1 &
@@ -226,6 +226,7 @@ else
 			-loglevel warning \
 			-acodec copy \
 			-bsf:a aac_adtstoasc \
+			-metadata title="${OUTFILE}" \
 			-metadata date="${YEAR}" \
 			-metadata genre="Radio" \
 			-metadata grouping="${GROUP}" \
