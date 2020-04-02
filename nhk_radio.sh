@@ -30,6 +30,7 @@ ARTIST="unknown"
 PORR="play"
 FNPOST="T"
 ALBUM="Radio"
+TITLE=""
 OUTFILE=""
 URL=""
 DURATION="1"
@@ -44,7 +45,7 @@ then
 	exit 1
 fi
 
-while getopts a:b:c:d:f:hmprs: OPT
+while getopts a:b:c:d:f:t:hmprs: OPT
 do
 	case $OPT in
 	"a") ARTIST=${OPTARG} ;;
@@ -52,6 +53,7 @@ do
 	"c") CHANNEL=${OPTARG} ;;
 	"d") DEVNAME=${OPTARG} ;;
 	"f") ALBUM=${OPTARG} ;;
+	"t") TITLE=${OPTARG} ;;
 	"h") HELP="1" ;;
 	"m") DURATION="60" ;;
 	"p") PORR="play" ;;
@@ -157,7 +159,8 @@ else
 	echo "	-b buffer  : set buffer size [10sec] (play, 1=10sec..20=200sec)"
 	echo "	-c channel : r1, r2, or fm"
 	echo "	-d device  : playback device name (play)"
-	echo "	-f file	   : set file name (rec)"
+	echo "	-f album   : set album name (rec)"
+	echo "	-t title   : set title name (rec)"
 	echo "	-m		   : set duration as minutes (default seconds)"
 	echo "	-p		   : play radio (default)"
 	echo "	-r		   : record radio"
@@ -176,6 +179,7 @@ echo "buffer   = ${PREBUF}0[s]"
 echo "duration = ${DURATION}[s]"
 echo "artist   = ${ARTIST}"
 echo "album    = ${ALBUM}"
+echo "title    = ${TITLE}"
 echo "file     = ${OUTFILE}"
 
 if [ $PORR = "rec" ]; then
@@ -226,7 +230,7 @@ else
 			-loglevel warning \
 			-acodec copy \
 			-bsf:a aac_adtstoasc \
-			-metadata title="${OUTFILE}" \
+			-metadata title="${TITLE}_${DATE}" \
 			-metadata date="${YEAR}" \
 			-metadata genre="Radio" \
 			-metadata grouping="${GROUP}" \
