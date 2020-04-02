@@ -30,7 +30,7 @@ ARTIST="unknown"
 PORR="play"
 FNPOST="T"
 ALBUM="Radio"
-TITLE=""
+TITLE="none"
 OUTFILE=""
 URL=""
 DURATION="1"
@@ -167,6 +167,10 @@ else
 	echo "	-s station : select station, sapporo, sendai, tokyo(default),"
 	echo "				 nagoya, osaka, hiroshima, matsuyama, or fukuoka"
 	exit 1
+fi
+
+if [ $TITLE = "none" ]; then
+	TITLE=${ALBUM}
 fi
 
 echo "station  = ${STATION}"
