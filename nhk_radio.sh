@@ -1,5 +1,6 @@
 #!/bin/bash
-
+readonly PID=$$
+readonly PIDFILE="/tmp/nhk_radio"
 readonly CMDNAME=`basename $0`
 pushd `dirname $0` >/dev/null 2>&1
 readonly DIRNAME=`pwd`
@@ -196,6 +197,7 @@ else
 fi
 PIDDL=$!
 echo "dlradio:${PIDDL}"
+echo ${PID} >${PIDFILE}
 
 timeNow=`date "+%s"`
 readonly TIMESTOP=`expr ${timeNow} + ${DURATION}`
@@ -205,6 +207,7 @@ on_exit()
 	kill -KILL "${PIDDL}" >/dev/null 2>&1
     [[ -e ${TMPFILE} ]] && rm -f "${TMPFILE}"
     [[ -e ${RECFILE} ]] && rm -f "${RECFILE}"
+    rm ${PIDFILE}
 	exit 0
 }
 
